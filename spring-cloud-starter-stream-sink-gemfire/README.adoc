@@ -50,7 +50,14 @@ $ cd apps
 You can find the corresponding binder based projects here.
 You can then cd into one of the folders and build it:
 
+== Adding Keystore and/or Truststore for GemFire SSL before project binder build 
 
+To add a keystore and/or truststore cd to the corresponding binder based project and the navigate to: src/main/resources directory and add a keystore and/or truststore
+
+== Build Binder Project
+
+You can find the corresponding binder based projects here.
+You can then cd into one of the folders and build it:
 ```
 $ ./mvnw clean package
 ```

@@ -44,11 +44,13 @@ $$gemfire.security.username$$:: $$The cache username.$$ *($$String$$, default: `
 == Build
 
 ```
-$ ./mvnw clean install -PgenerateApps
+$ ./mvnw clean install -PgenerateApps -Dgpg.skip
 $ cd apps
 ```
 You can find the corresponding binder based projects here.
 You can then cd into one of the folders and build it:
+
+
 ```
 $ ./mvnw clean package
 ```

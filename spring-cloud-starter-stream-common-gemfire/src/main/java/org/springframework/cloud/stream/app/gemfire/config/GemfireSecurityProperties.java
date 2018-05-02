@@ -76,33 +76,38 @@ public class GemfireSecurityProperties {
 			logger.info("Parse GemFire Properties: " + this.gemfireProperties);
 			String[] secProps = this.gemfireProperties.split(",");
 			if (secProps != null && secProps.length > 0) {
-				for (String secProp : secProps) {
-					String[] props = secProp.split("=");
-					if (props != null && props.length == 2) {
-						if (props[1].toLowerCase().startsWith(CLASSPATH)) {
-							InputStream is = GemfireSecurityProperties.class.getClassLoader()
-									.getResourceAsStream(props[1].substring(CLASSPATH.length()));
-							File f = new File("file" + UUID.randomUUID().toString().replaceAll("-", ""));
-							OutputStream os;
-							try {
-								os = new FileOutputStream(f);
-								org.apache.commons.io.IOUtils.copy(is, os);
-								os.close();
-								logger.info("Adding GemFire Property: " + props[0] + "=" + f.getAbsolutePath());
-								properties.put(props[0], f.getAbsolutePath());
-							} catch (Exception e) {
-								logger.error("Exception processing GemFire property " + props[0] + "=" + props[1]);
-							}
-						} else {
-							logger.info("Adding GemFire Property: " + props[0] + "=" + props[1]);
-							properties.put(props[0], props[1]);
-						}
+				return createProperties(secProps);
+			}
+		}
+		return properties;		
+	}
+	
+	private Properties createProperties(String[] secProps) {
+		Properties properties = new Properties();		
+		for (String secProp : secProps) {
+			String[] props = secProp.split("=");
+			if (props != null && props.length == 2) {
+				if (props[1].toLowerCase().startsWith(CLASSPATH)) {
+					InputStream is = GemfireSecurityProperties.class.getClassLoader()
+							.getResourceAsStream(props[1].substring(CLASSPATH.length()));
+					File f = new File("file" + UUID.randomUUID().toString().replaceAll("-", ""));
+					OutputStream os;
+					try {
+						os = new FileOutputStream(f);
+						org.apache.commons.io.IOUtils.copy(is, os);
+						os.close();
+						logger.info("Adding GemFire Property: " + props[0] + "=" + f.getAbsolutePath());
+						properties.put(props[0], f.getAbsolutePath());
+					} catch (Exception e) {
+						logger.error("Exception processing GemFire property " + props[0] + "=" + props[1]);
 					}
+				} else {
+					logger.info("Adding GemFire Property: " + props[0] + "=" + props[1]);
+					properties.put(props[0], props[1]);
 				}
 			}
 		}
 		return properties;
-		
 	}
 
 	public void setGemfireProperties(String gemfireProperties) {

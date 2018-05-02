@@ -37,10 +37,18 @@ $$gemfire.security.username$$:: $$The cache username.$$ *($$String$$, default: `
 == Build
 
 ```
-$ ./mvnw clean install -PgenerateApps
+$ ./mvnw clean install -PgenerateApps -Dgpg.skip
 $ cd apps
 ```
 You can find the corresponding binder based projects here.
+
+== Adding Keystore and/or Truststore for GemFire SSL before project binder build 
+
+To add a keystore and/or truststore cd to the corresponding binder based project and the navigate to src/main/resources directory 
+Add a keystore and/or truststore
+
+== Build Binder Project
+
 You can then cd into one of the folders and build it:
 ```
 $ ./mvnw clean package

@@ -1,0 +1,62 @@
+//tag::ref-doc[]
+= Gemfire Sink
+
+The Gemfire sink allows one to write message payloads to a Gemfire server.
+
+== Input
+
+=== Headers
+
+* `content-type: text/plain`
+
+=== Payload
+
+* `String`
+
+=== Headers
+
+* `content-type: application/x-java-serialized-object`
+
+=== Payload
+
+* `java.io.Serializable`
+
+== Output
+
+N/A
+
+== Options
+
+The **$$gemfire$$** $$sink$$ has the following options:
+
+//tag::configuration-properties[]
+$$gemfire.json$$:: $$Indicates if the Gemfire region stores json objects as native Gemfire PdxInstance$$ *($$Boolean$$, default: `$$false$$`)*
+$$gemfire.key-expression$$:: $$SpEL expression to use as a cache key$$ *($$String$$, default: `$$<none>$$`)*
+$$gemfire.pool.connect-type$$:: $$Specifies connection type: 'server' or 'locator'.$$ *($$ConnectType$$, default: `$$<none>$$`, possible values: `locator`,`server`)*
+$$gemfire.pool.host-addresses$$:: $$Specifies one or more Gemfire locator or server addresses formatted as [host]:[port].$$ *($$InetSocketAddress[]$$, default: `$$<none>$$`)*
+$$gemfire.pool.subscription-enabled$$:: $$Set to true to enable subscriptions for the client pool. Required to sync updates to the client cache.$$ *($$Boolean$$, default: `$$false$$`)*
+$$gemfire.region.region-name$$:: $$The region name.$$ *($$String$$, default: `$$<none>$$`)*
+$$gemfire.security.gemfire-properties$$:: $$<documentation missing>$$ *($$Properties$$, default: `$$<none>$$`)*
+$$gemfire.security.password$$:: $$The cache password.$$ *($$String$$, default: `$$<none>$$`)*
+$$gemfire.security.username$$:: $$The cache username.$$ *($$String$$, default: `$$<none>$$`)*
+//end::configuration-properties[]
+
+== Build
+
+```
+$ ./mvnw clean install -PgenerateApps
+$ cd apps
+```
+You can find the corresponding binder based projects here.
+You can then cd into one of the folders and build it:
+```
+$ ./mvnw clean package
+```
+
+== Examples
+
+```
+java -jar gemfire-sink.jar --gemfire.keyExpression=
+```
+
+//end::ref-doc[]

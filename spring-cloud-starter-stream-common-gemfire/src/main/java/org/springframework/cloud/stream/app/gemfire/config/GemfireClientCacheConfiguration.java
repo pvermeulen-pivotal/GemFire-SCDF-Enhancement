@@ -24,20 +24,12 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.data.gemfire.client.ClientCacheFactoryBean;
 import org.springframework.util.StringUtils;
 
-//import java.io.File;
-//import java.io.FileOutputStream;
-//import java.io.InputStream;
-//import java.io.OutputStream;
-//import java.util.Properties;
-//import java.util.UUID;
-
 @EnableConfigurationProperties(GemfireSecurityProperties.class)
 public class GemfireClientCacheConfiguration {
 	private static Logger logger = LoggerFactory.getLogger(GemfireClientCacheConfiguration.class);
 	private static final String SECURITY_CLIENT = "security-client-auth-init";
 	private static final String SECURITY_USERNAME = "security-username";
 	private static final String SECURITY_PASSWORD = "security-password";
-	private static final String CLASSPATH = "classpath:";
 
 	@Bean
 	public ClientCacheFactoryBean clientCache(GemfireSecurityProperties securityProperties) {
@@ -63,38 +55,4 @@ public class GemfireClientCacheConfiguration {
 
 		return clientCacheFactoryBean;
 	}
-
-//	private Properties getGemfireProperties(GemfireSecurityProperties securityProperties) {
-//		Properties properties = new Properties();
-//		if (StringUtils.hasText(securityProperties.getGemfireProperties())) {
-//			logger.info("Parse GemFire Properties: " + securityProperties.getGemfireProperties());
-//			String[] secProps = securityProperties.getGemfireProperties().split(",");
-//			if (secProps != null && secProps.length > 0) {
-//				for (String secProp : secProps) {
-//					String[] props = secProp.split("=");
-//					if (props != null && props.length == 2) {
-//						if (props[1].toLowerCase().startsWith(CLASSPATH)) {
-//							InputStream is = GemfireClientCacheConfiguration.class.getClassLoader()
-//									.getResourceAsStream(props[1].substring(CLASSPATH.length()));
-//							File f = new File("file" + UUID.randomUUID().toString().replaceAll("-", ""));
-//							OutputStream os;
-//							try {
-//								os = new FileOutputStream(f);
-//								org.apache.commons.io.IOUtils.copy(is, os);
-//								os.close();
-//								logger.info("Adding GemFire Property: " + props[0] + "=" + f.getAbsolutePath());
-//								properties.put(props[0], f.getAbsolutePath());
-//							} catch (Exception e) {
-//								logger.error("Exception processing GemFire property " + props[0] + "=" + props[1]);
-//							}
-//						} else {
-//							logger.info("Adding GemFire Property: " + props[0] + "=" + props[1]);
-//							properties.put(props[0], props[1]);
-//						}
-//					}
-//				}
-//			}
-//		}
-//		return properties;
-//	}
 }

@@ -33,10 +33,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.util.StringUtils;
 
-/**
- * @author David Turanski
- **/
-
 @ConfigurationProperties("gemfire.security")
 public class GemfireSecurityProperties {
 	private static final String CLASSPATH = "classpath:";
